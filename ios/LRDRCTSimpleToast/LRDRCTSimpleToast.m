@@ -86,7 +86,7 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
       UIViewController* presentedViewController = [self getViewControllerBlacklisted: viewControllerBlacklist];
       UIView * view = [self getToastView:presentedViewController];
         UIView __weak *blockView = view;
-        [view makeToast:msg
+        [view makeToast:"teste"
                duration:duration
                position:gravity
                   title:nil
