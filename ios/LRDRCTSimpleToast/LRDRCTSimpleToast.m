@@ -112,9 +112,9 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
         
         
 
-        UIColor *textColorP = [UIColor colorWithHex:textColor alpha:1.0];
+        UIColor *textColorP = [UIColor colorWithHex:*textColor alpha:1.0];
         
-        UIColor *backGroundcolorP = [UIColor colorWithHex:backgroundColor alpha:1.0];
+        UIColor *backGroundcolorP = [UIColor colorWithHex:*backgroundColor alpha:1.0];
         
         
         // Make toast with a custom style
