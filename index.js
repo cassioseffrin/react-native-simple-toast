@@ -25,7 +25,7 @@ export default {
     );
   },
 
-  showWithGravity(message, duration, gravity, viewControllerBlacklist) {
+  showWithGravity(message, duration, gravity, textColor, backgroundColor, viewControllerBlacklist) {
     RCTToast.showWithGravity(
       message,
       duration === undefined ? RCTToast.SHORT : duration,
