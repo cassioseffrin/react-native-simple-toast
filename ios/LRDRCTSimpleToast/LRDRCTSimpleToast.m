@@ -14,6 +14,19 @@ NSInteger const LRDRCTSimpleToastBottomOffset = 40;
 double const LRDRCTSimpleToastShortDuration = 3.0;
 double const LRDRCTSimpleToastLongDuration = 5.0;
 
+@interface UIColor (Hex)
++ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
+@end
+
+@implementation UIColor (Hex)
++ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha {
+    return [UIColor colorWithRed:((CGFloat)((hex & 0xFF0000) >> 16))/255.0
+                           green:((CGFloat)((hex & 0xFF00) >> 8))/255.0
+                            blue:((CGFloat)(hex & 0xFF))/255.0
+                           alpha:alpha];
+}
+@end
+
 @interface LRDRCTSimpleToast : NSObject <RCTBridgeModule>
 @end
 
@@ -67,31 +80,57 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(show:(NSString *)msg
                   duration:(double)duration
+                  textColor:(nullable  NSUInteger *)textColor
+                  backgroundColor:(nullable  NSUInteger *)backgroundColor
                   viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
-  [self _show:msg duration:duration gravity:CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
+    [self _show:msg duration:duration gravity:CSToastPositionBottom textColor:textColor backgroundColor: backgroundColor viewControllerBlacklist:viewControllerBlacklist];
 });
 
 RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
                   duration:(double)duration
                   gravity:(nonnull NSString *)gravity
+                  textColor:( nullable NSUInteger *)textColor
+                  backgroundColor:(nullable  NSUInteger *)backgroundColor
                   viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
-  [self _show:msg duration:duration gravity:gravity viewControllerBlacklist:viewControllerBlacklist];
+  [self _show:msg duration:duration gravity:gravity textColor:textColor backgroundColor: backgroundColor viewControllerBlacklist:viewControllerBlacklist];
 });
+
+
+
 
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
-      gravity:(nonnull NSString *)gravity
+      gravity:(  NSString *)gravity
+      textColor:(nullable  NSUInteger *)textColor
+      backgroundColor:(nullable NSUInteger *)backgroundColor
+
 viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     dispatch_async(dispatch_get_main_queue(), ^{
       UIViewController* presentedViewController = [self getViewControllerBlacklisted: viewControllerBlacklist];
       UIView * view = [self getToastView:presentedViewController];
         UIView __weak *blockView = view;
-        [view makeToast:"teste"
+        
+        
+
+        UIColor *textColorP = [UIColor colorWithHex:textColor alpha:1.0];
+        
+        UIColor *backGroundcolorP = [UIColor colorWithHex:backgroundColor alpha:1.0];
+        
+        
+        // Make toast with a custom style
+        CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
+//        style.messageFont = [UIFont fontWithName:@"Zapfino" size:14.0];
+        style.messageColor = textColorP;
+        style.messageAlignment = NSTextAlignmentCenter;
+//        style.backgroundColor = [ Color(hex:0xF2C94C)];
+        style.backgroundColor = backGroundcolorP ;
+//        @"#50A54A"
+        [view makeToast:msg
                duration:duration
                position:gravity
                   title:nil
                   image:nil
-                  style:nil
+                  style:style
              completion:^(BOOL didTap) {
                  [blockView removeFromSuperview];
              }];

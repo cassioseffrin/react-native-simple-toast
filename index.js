@@ -15,10 +15,12 @@ export default {
   BOTTOM: RCTToast.BOTTOM,
   CENTER: RCTToast.CENTER,
 
-  show(message, duration, viewControllerBlacklist) {
+  show(message, duration, textColor, backgroundColor, viewControllerBlacklist) {
     RCTToast.show(
       message,
       duration === undefined ? RCTToast.SHORT : duration,
+      textColor === undefined ? 0xffffff : textColor,
+      backgroundColor === undefined ? 0x50A54A : backgroundColor,
       viewControllerBlacklist
     );
   },
@@ -27,6 +29,8 @@ export default {
     RCTToast.showWithGravity(
       message,
       duration === undefined ? RCTToast.SHORT : duration,
+      textColor === undefined ? 0xffffff : textColor,
+      backgroundColor === undefined ? 0x50A54A : backgroundColor,
       gravity,
       viewControllerBlacklist
     );
