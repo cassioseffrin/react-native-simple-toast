@@ -2,12 +2,16 @@
 
 React Native Toast component for both Android and iOS. It just lets iOS users have the same toast experience as on Android. Using [scalessec/Toast](https://github.com/scalessec/Toast) on iOS and the standard [ToastAndroid](http://facebook.github.io/react-native/docs/toastandroid.html) on Android;
 
-This is based on work at https://github.com/xgfe/react-native-simple-toast, but doesn't have much in common any more.
+This is based on work at <https://github.com/xgfe/react-native-simple-toast>, but doesn't have much in common any more.
 
 ## Install
 
 ```bash
 npm install react-native-simple-toast --save
+
+yarn add 'react-native-simple-toast@https://github.com/cassioseffrin/react-native-simple-toast'
+
+
 react-native link react-native-simple-toast // only RN < 0.60
 cd ios && pod install
 ```
