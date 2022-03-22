@@ -15,11 +15,14 @@ double const LRDRCTSimpleToastShortDuration = 3.0;
 double const LRDRCTSimpleToastLongDuration = 5.0;
 
 @interface UIColor (Hex)
-+ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
++ (UIColor *)colorWithHex:(NSString*)hex alpha:(CGFloat)alpha;
 @end
 
 @implementation UIColor (Hex)
-+ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha {
++ (UIColor *)colorWithHex:(NSString*)hexStr alpha:(CGFloat)alpha {
+    
+    NSUInteger hex = [hexStr intValue];
+
     return [UIColor colorWithRed:((CGFloat)((hex & 0xFF0000) >> 16))/255.0
                            green:((CGFloat)((hex & 0xFF00) >> 8))/255.0
                             blue:((CGFloat)(hex & 0xFF))/255.0
@@ -80,8 +83,8 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(show:(NSString *)msg
                   duration:(double)duration
-                  textColor:(nullable  NSUInteger *)textColor
-                  backgroundColor:(nullable  NSUInteger *)backgroundColor
+                  textColor:(nullable  NSString *)textColor
+                  backgroundColor:(nullable  NSString *)backgroundColor
                   viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     [self _show:msg duration:duration gravity:CSToastPositionBottom textColor:textColor backgroundColor: backgroundColor viewControllerBlacklist:viewControllerBlacklist];
 });
@@ -89,8 +92,8 @@ RCT_EXPORT_METHOD(show:(NSString *)msg
 RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
                   duration:(double)duration
                   gravity:(nonnull NSString *)gravity
-                  textColor:( nullable NSUInteger *)textColor
-                  backgroundColor:(nullable  NSUInteger *)backgroundColor
+                  textColor:( nullable NSString *)textColor
+                  backgroundColor:(nullable  NSString *)backgroundColor
                   viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
   [self _show:msg duration:duration gravity:gravity textColor:textColor backgroundColor: backgroundColor viewControllerBlacklist:viewControllerBlacklist];
 });
@@ -101,8 +104,8 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
       gravity:(  NSString *)gravity
-      textColor:(nullable  NSUInteger *)textColor
-      backgroundColor:(nullable NSUInteger *)backgroundColor
+      textColor:(nullable  NSString *)textColor
+      backgroundColor:(nullable NSString *)backgroundColor
 
 viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -112,9 +115,9 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
         
         
 
-        UIColor *textColorP = [UIColor colorWithHex:*textColor alpha:1.0];
+        UIColor *textColorP = [UIColor colorWithHex:textColor alpha:1.0];
         
-        UIColor *backGroundcolorP = [UIColor colorWithHex:*backgroundColor alpha:1.0];
+        UIColor *backGroundcolorP = [UIColor colorWithHex:backgroundColor alpha:1.0];
         
         
         // Make toast with a custom style

@@ -29,9 +29,9 @@ export default {
     RCTToast.showWithGravity(
       message,
       duration === undefined ? RCTToast.SHORT : duration,
-      textColor === undefined ? 0xffffff : textColor,
-      backgroundColor === undefined ? 0x50A54A : backgroundColor,
       gravity,
+      textColor === undefined ? '0xffffff' : textColor.toString(),
+      backgroundColor === undefined ? '0x50A54A' : backgroundColor.toString(),
       viewControllerBlacklist
     );
   },
