@@ -20,7 +20,7 @@ export default {
       message,
       duration === undefined ? RCTToast.SHORT : duration,
       textColor === undefined ? 0xffffff : textColor,
-      backgroundColor === undefined ? 0x50A54A : backgroundColor,
+      backgroundColor === undefined ? 0x000000 : backgroundColor,
       viewControllerBlacklist
     );
   },
@@ -31,7 +31,7 @@ export default {
       duration === undefined ? RCTToast.SHORT : duration,
       gravity,
       textColor === undefined ? '0xffffff' : textColor.toString(),
-      backgroundColor === undefined ? '0x50A54A' : backgroundColor.toString(),
+      backgroundColor === undefined ? '0x000000' : backgroundColor.toString(),
       viewControllerBlacklist
     );
   },
